@@ -1,6 +1,6 @@
 package com.azyabon.moviesapp.domain.model
 
-data class Movie(
+data class MovieDetails(
     val id: Int,
     val title: String,
     val overview: String,
@@ -8,5 +8,8 @@ data class Movie(
     val backdropPath: String?,
     val releaseDate: String,
     val voteAverage: Double,
-    val genreIds: List<Int>
+    val runtime: Int?,
+    val genres: List<Genre>,
+    val tagline: String,
+    val homepage: String?
 )

@@ -1,6 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+}
+
+val localProps = Properties()
+val localProperties = File("local.properties")
+if (localProperties.exists() && localProperties.isFile) {
+    localProperties.inputStream().use {
+        localProps.load(it)
+    }
 }
 
 android {
@@ -24,6 +34,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "TMDB_API_KEY", "\"${localProps.getProperty("TMDB_API_KEY").orEmpty()}\"")
+        }
+        debug {
+            buildConfigField("String", "TMDB_API_KEY", "\"${localProps.getProperty("TMDB_API_KEY").orEmpty()}\"")
         }
     }
 
@@ -41,6 +55,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

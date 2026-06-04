@@ -30,9 +30,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.favoritesFragment
             )
             binding.ibSearch.isVisible = destination.id == R.id.homeFragment
-            binding.ibSearch.setOnClickListener {
-                navController.navigate(R.id.action_homeFragment_to_searchFragment)
-            }
+
+            binding.topAppBar.isVisible = destination.id != R.id.movieFragment
 
             binding.topAppBar.setTitle(when (destination.id) {
                 R.id.homeFragment -> getString(R.string.home)
@@ -41,6 +40,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.searchFragment -> getString(R.string.search)
                 else -> ""
             })
+        }
+
+        binding.ibSearch.setOnClickListener {
+            navController.navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
         binding.bottomNavigationView.setupWithNavController(navController)

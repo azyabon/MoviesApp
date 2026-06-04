@@ -1,6 +1,6 @@
-package com.azyabon.moviesapp.domain.model
+package com.azyabon.moviesapp.data.remote.dto
 
-data class SpokenLanguage(
+data class SpokenLanguageDto(
     val english_name: String,
     val iso_639_1: String,
     val name: String
