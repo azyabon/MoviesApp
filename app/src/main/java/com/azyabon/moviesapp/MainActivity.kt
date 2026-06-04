@@ -6,7 +6,9 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.azyabon.moviesapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -30,8 +32,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.favoritesFragment
             )
             binding.ibSearch.isVisible = destination.id == R.id.homeFragment
-
-            binding.topAppBar.isVisible = destination.id != R.id.movieFragment
 
             binding.topAppBar.setTitle(when (destination.id) {
                 R.id.homeFragment -> getString(R.string.home)

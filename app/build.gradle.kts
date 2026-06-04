@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
 val localProps = Properties()
@@ -66,6 +68,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    // Hilt for Dependency Injection
+    implementation(libs.hilt.android)
+
+    // Annotation processor for Hilt
+    ksp(libs.hilt.compiler)
 
     // Retrofit + Gson Converter
     implementation(libs.retrofit)
