@@ -1,14 +1,16 @@
 package com.azyabon.moviesapp.presentation.home
 
 import androidx.lifecycle.ViewModel
-import com.azyabon.moviesapp.data.repository.MovieRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
+import com.azyabon.moviesapp.data.repository.MovieRepository
 import com.azyabon.moviesapp.domain.model.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -22,32 +24,38 @@ class HomeViewModel @Inject constructor(
         loadPopularMovies()
     }
 
+    private data class HomeData(
+        val popular: List<Movie>,
+        val topRated: List<Movie>,
+        val upcoming: List<Movie>,
+        val nowPlaying: List<Movie>
+    )
+
     private fun loadPopularMovies() {
         viewModelScope.launch {
             _uiState.value = HomeUi(isLoading = true)
 
             try {
-                val popular = movieRepository.getPopularMovies()
-                val topRated = movieRepository.getTopRatedMovies()
-                val upcoming = movieRepository.getUpcomingMovies()
+                val homeData = coroutineScope {
+                    val popularDeferred = async { movieRepository.getPopularMovies() }
+                    val topRatedDeferred = async { movieRepository.getTopRatedMovies() }
+                    val upcomingDeferred = async { movieRepository.getUpcomingMovies() }
+                    val nowPlayingDeferred = async { movieRepository.getNowPlayingMovies() }
+
+                    HomeData(
+                        popular = popularDeferred.await(),
+                        topRated = topRatedDeferred.await(),
+                        upcoming = upcomingDeferred.await(),
+                        nowPlaying = nowPlayingDeferred.await()
+                    )
+                }
 
                 _uiState.value = HomeUi(
+                    slides = homeData.nowPlaying.map { it.toSliderUi() },
                     sections = listOf(
-                        MovieSectionUi(
-                            title = "Popular",
-                            type = MovieSectionType.POPULAR,
-                            movies = popular.map { it.toUi() }
-                        ),
-                        MovieSectionUi(
-                            title = "Top Rated",
-                            type = MovieSectionType.TOP_RATED,
-                            movies = topRated.map { it.toUi() }
-                        ),
-                        MovieSectionUi(
-                            title = "Upcoming",
-                            type = MovieSectionType.UPCOMING,
-                            movies = upcoming.map { it.toUi() }
-                        )
+                        createSection("Popular", MovieSectionType.POPULAR, homeData.popular),
+                        createSection("Top Rated", MovieSectionType.TOP_RATED, homeData.topRated),
+                        createSection("Upcoming", MovieSectionType.UPCOMING, homeData.upcoming)
                     )
                 )
             } catch (e: Exception) {
@@ -56,11 +64,30 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun createSection(
+        title: String,
+        type: MovieSectionType,
+        movies: List<Movie>
+    ): MovieSectionUi {
+        return MovieSectionUi(
+            title = title,
+            type = type,
+            movies = movies.map { it.toUi() }
+        )
+    }
+
     private fun Movie.toUi(): MovieUi {
         return MovieUi(
             id = id,
             rating = voteAverage,
             posterPath = posterPath
+        )
+    }
+
+    private fun Movie.toSliderUi(): SliderUi {
+        return SliderUi(
+            imageUrl = backdropPath.orEmpty(),
+            title = title
         )
     }
 }

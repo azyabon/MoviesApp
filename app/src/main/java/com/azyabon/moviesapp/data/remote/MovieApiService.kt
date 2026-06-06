@@ -26,6 +26,12 @@ interface MovieApiService {
         @Query("language") language: String = "en-US"
     ): MovieListResponseDto
 
+    @GET("movie/now_playing")
+    suspend fun getNowPlayingMovies(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = "en-US"
+    ): MovieListResponseDto
+
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,

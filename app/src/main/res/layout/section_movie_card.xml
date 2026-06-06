@@ -9,12 +9,12 @@
         android:id="@+id/movieCard"
         android:layout_width="200dp"
         android:layout_height="280dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="20dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,30 +26,30 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/movie_image_description"
                 android:scaleType="fitXY"
+                android:src="@drawable/blank"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/blank" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_slider_gradient"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_button"
-                android:paddingVertical="2dp"
-                android:paddingHorizontal="6dp">
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvMovieRating"
-                    style="@style/TextViewMovieRatingText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="10.0" />
-
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tvMovieRating"
+                style="@style/TextViewMovieRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="10.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

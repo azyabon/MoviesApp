@@ -6,4 +6,6 @@
     <color name="background">#FFFFFF</color>
     <color name="surface">#F5F7FB</color>
     <color name="text">#181818</color>
+    <color name="error">#FF616C</color>
+    <color name="success">#05D38C</color>
 </resources>

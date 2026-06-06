@@ -22,6 +22,10 @@ class MovieRepository(
         return api.getUpcomingMovies().results.map { it.toMovie() }
     }
 
+    suspend fun getNowPlayingMovies(): List<Movie> {
+        return api.getNowPlayingMovies().results.map { it.toMovie() }
+    }
+
     suspend fun getMovieDetails(movieId: Int): MovieDetails {
         return api.getMovieDetails(movieId).toMovieDetails()
     }

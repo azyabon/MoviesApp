@@ -2,6 +2,7 @@ package com.azyabon.moviesapp.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +11,8 @@ import coil3.load
 import coil3.request.crossfade
 import coil3.request.placeholder
 import com.azyabon.moviesapp.R
-
-private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780"
+import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL
+import com.azyabon.moviesapp.presentation.common.getRatingColor
 
 class MoviesAdapter(
     private val onItemClick: () -> Unit
@@ -42,12 +43,18 @@ class MoviesAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MoviesAdapter.MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
 
         holder.binding.apply {
+            val color = ContextCompat.getColor(
+                tvMovieRating.context,
+                getRatingColor(movie.rating)
+            )
+
             tvMovieRating.text = "%.1f".format(movie.rating).toString()
-            ivMovie.load(movie.posterPath?.let { IMAGE_BASE_URL + it }) {
+            tvMovieRating.setTextColor(color)
+            ivMovie.load(movie.posterPath?.let { TMDB_IMAGE_BASE_URL + it }) {
                 crossfade(true)
                 placeholder(R.drawable.blank)
             }

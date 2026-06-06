@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sliderCard"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:adjustViewBounds="true"
+    app:cardCornerRadius="10dp">
+
+    <ImageView
+        android:id="@+id/ivSliderImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_slider_gradient" />
+
+    <TextView
+        android:id="@+id/tvSliderTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:lines="2"
+        android:textStyle="bold"
+        tools:text="Movie title" />
+
+</androidx.cardview.widget.CardView>
