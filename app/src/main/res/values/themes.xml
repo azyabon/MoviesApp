@@ -8,6 +8,10 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/text</item>
+
+        <!--Base Text Styles-->
+        <item name="android:textViewStyle">@style/NunitoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/NunitoButtonStyle</item>
     </style>
 
     <style name="Theme.MoviesApp" parent="Base.Theme.MoviesApp" />

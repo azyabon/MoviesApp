@@ -14,6 +14,14 @@ class MovieRepository(
         return api.getPopularMovies().results.map { it.toMovie() }
     }
 
+    suspend fun getTopRatedMovies(): List<Movie> {
+        return api.getTopRatedMovies().results.map { it.toMovie() }
+    }
+
+    suspend fun getUpcomingMovies(): List<Movie> {
+        return api.getUpcomingMovies().results.map { it.toMovie() }
+    }
+
     suspend fun getMovieDetails(movieId: Int): MovieDetails {
         return api.getMovieDetails(movieId).toMovieDetails()
     }

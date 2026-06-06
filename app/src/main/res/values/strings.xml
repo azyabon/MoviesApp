@@ -4,4 +4,6 @@
     <string name="search">Search Movies</string>
     <string name="favorites">Favorites</string>
     <string name="genres">Genres</string>
+    <string name="movie_image_description">Image of the movie</string>
+    <string name="see_all"><u>See all</u></string>
 </resources>

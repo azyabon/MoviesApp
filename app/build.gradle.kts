@@ -69,6 +69,10 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    // Coil for image loading
+    implementation(libs.coil.android)
+    implementation(libs.coil.network.okhttp)
+
     // Hilt for Dependency Injection
     implementation(libs.hilt.android)
 

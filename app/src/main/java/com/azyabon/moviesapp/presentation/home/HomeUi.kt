@@ -1,9 +1,7 @@
 package com.azyabon.moviesapp.presentation.home
 
-import com.azyabon.moviesapp.domain.model.Movie
-
-data class HomeUiState(
+data class HomeUi(
     val isLoading: Boolean = false,
-    val movies: List<Movie> = emptyList(),
+    val sections: List<MovieSectionUi> = emptyList(),
     val errorMessage: String? = null
 )

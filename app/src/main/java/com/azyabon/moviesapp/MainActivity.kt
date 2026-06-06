@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.genresFragment -> getString(R.string.genres)
                 R.id.favoritesFragment -> getString(R.string.favorites)
                 R.id.searchFragment -> getString(R.string.search)
+                R.id.moviesFragment -> "Movies"
+                R.id.movieFragment -> "Movie"
                 else -> ""
             })
         }

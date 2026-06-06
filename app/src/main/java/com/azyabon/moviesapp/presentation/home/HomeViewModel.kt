@@ -5,6 +5,7 @@ import com.azyabon.moviesapp.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
+import com.azyabon.moviesapp.domain.model.Movie
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,8 +15,8 @@ class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState
+    private val _uiState = MutableStateFlow(HomeUi())
+    val uiState: StateFlow<HomeUi> = _uiState
 
     init {
         loadPopularMovies()
@@ -23,14 +24,43 @@ class HomeViewModel @Inject constructor(
 
     private fun loadPopularMovies() {
         viewModelScope.launch {
-            _uiState.value = HomeUiState(isLoading = true)
+            _uiState.value = HomeUi(isLoading = true)
 
             try {
-                val movies = movieRepository.getPopularMovies()
-                _uiState.value = HomeUiState(movies = movies)
+                val popular = movieRepository.getPopularMovies()
+                val topRated = movieRepository.getTopRatedMovies()
+                val upcoming = movieRepository.getUpcomingMovies()
+
+                _uiState.value = HomeUi(
+                    sections = listOf(
+                        MovieSectionUi(
+                            title = "Popular",
+                            type = MovieSectionType.POPULAR,
+                            movies = popular.map { it.toUi() }
+                        ),
+                        MovieSectionUi(
+                            title = "Top Rated",
+                            type = MovieSectionType.TOP_RATED,
+                            movies = topRated.map { it.toUi() }
+                        ),
+                        MovieSectionUi(
+                            title = "Upcoming",
+                            type = MovieSectionType.UPCOMING,
+                            movies = upcoming.map { it.toUi() }
+                        )
+                    )
+                )
             } catch (e: Exception) {
-                _uiState.value = HomeUiState(errorMessage = e.message)
+                _uiState.value = HomeUi(errorMessage = e.message)
             }
         }
+    }
+
+    private fun Movie.toUi(): MovieUi {
+        return MovieUi(
+            id = id,
+            rating = voteAverage,
+            posterPath = posterPath
+        )
     }
 }
