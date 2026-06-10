@@ -32,7 +32,11 @@ fun MovieDetailsDto.toMovieDetails(): MovieDetails {
         runtime = runtime,
         genres = genres.map { it.toGenre() },
         tagline = tagline.orEmpty(),
-        homepage = homepage
+        homepage = homepage,
+        budget = budget,
+        revenue = revenue,
+        adult = adult,
+        status = status,
     )
 }
 

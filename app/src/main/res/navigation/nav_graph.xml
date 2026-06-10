@@ -38,7 +38,11 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.azyabon.moviesapp.presentation.movie.MovieFragment"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/genresFragment"
         android:name="com.azyabon.moviesapp.presentation.genres.GenresFragment"
@@ -46,7 +50,6 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.azyabon.moviesapp.presentation.movies.MoviesFragment"
-        android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
         <action
             android:id="@+id/action_moviesFragment_to_movieFragment"

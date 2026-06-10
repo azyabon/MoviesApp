@@ -86,6 +86,7 @@ class HomeViewModel @Inject constructor(
 
     private fun Movie.toSliderUi(): SliderUi {
         return SliderUi(
+            id = id,
             imageUrl = backdropPath.orEmpty(),
             title = title
         )

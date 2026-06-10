@@ -8,8 +8,12 @@ data class MovieDetails(
     val backdropPath: String?,
     val releaseDate: String,
     val voteAverage: Double,
+    val adult: Boolean,
     val runtime: Int?,
     val genres: List<Genre>,
     val tagline: String,
+    val budget: Int,
+    val revenue: Int,
+    val status: String,
     val homepage: String?
 )

@@ -6,4 +6,11 @@
     <string name="genres">Genres</string>
     <string name="movie_image_description">Image of the movie</string>
     <string name="see_all"><u>See all</u></string>
+    <string name="back_button">back button</string>
+    <string name="favorite_button">favorite button</string>
+    <string name="overview">Overview</string>
+    <string name="arrow_overview">arrow for expand overview</string>
+    <string name="overview_icon">overview icon</string>
+    <string name="tv_budget">Budget: %1$s</string>
+    <string name="tv_revenue">Revenue: %1$s</string>
 </resources>

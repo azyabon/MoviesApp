@@ -8,10 +8,10 @@ import coil3.request.crossfade
 import coil3.request.placeholder
 import com.azyabon.moviesapp.R
 import com.azyabon.moviesapp.databinding.SliderCardBinding
-import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL
+import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL_780
 
 class SliderAdapter(
-    private val onItemClick: () -> Unit
+    private val onItemClick: (movieId: Int) -> Unit
 ) : RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
 
     private var images: List<SliderUi> = emptyList()
@@ -31,13 +31,13 @@ class SliderAdapter(
 
         holder.binding.apply {
             tvSliderTitle.text = item.title
-            ivSliderImage.load(TMDB_IMAGE_BASE_URL + item.imageUrl) {
+            ivSliderImage.load(TMDB_IMAGE_BASE_URL_780 + item.imageUrl) {
                 crossfade(true)
                 placeholder(R.drawable.blank)
             }
 
             sliderCard.setOnClickListener {
-                onItemClick()
+                onItemClick(item.id)
             }
         }
     }

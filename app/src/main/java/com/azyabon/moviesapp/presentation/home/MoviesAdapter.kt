@@ -11,11 +11,11 @@ import coil3.load
 import coil3.request.crossfade
 import coil3.request.placeholder
 import com.azyabon.moviesapp.R
-import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL
+import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL_780
 import com.azyabon.moviesapp.presentation.common.getRatingColor
 
 class MoviesAdapter(
-    private val onItemClick: () -> Unit
+    private val onItemClick: (movieId: Int) -> Unit
 ) : ListAdapter<MovieUi, MoviesAdapter.MovieViewHolder>(DiffCallback) {
 
     companion object {
@@ -54,13 +54,13 @@ class MoviesAdapter(
 
             tvMovieRating.text = "%.1f".format(movie.rating).toString()
             tvMovieRating.setTextColor(color)
-            ivMovie.load(movie.posterPath?.let { TMDB_IMAGE_BASE_URL + it }) {
+            ivMovie.load(movie.posterPath?.let { TMDB_IMAGE_BASE_URL_780 + it }) {
                 crossfade(true)
                 placeholder(R.drawable.blank)
             }
 
             movieCard.setOnClickListener {
-                onItemClick()
+                onItemClick(movie.id)
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -71,18 +72,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        val popularAdapter = MoviesAdapter(
-            onItemClick = ::onMovieClick
-        )
-        val topRatedAdapter = MoviesAdapter(
-            onItemClick = ::onMovieClick
-        )
-        val upcomingAdapter = MoviesAdapter(
-            onItemClick = ::onMovieClick
-        )
-        val sliderAdapter = SliderAdapter(
-            onItemClick = ::onMovieClick
-        )
+        val popularAdapter = MoviesAdapter(::onMovieClick)
+        val topRatedAdapter = MoviesAdapter(::onMovieClick)
+        val upcomingAdapter = MoviesAdapter(::onMovieClick)
+        val sliderAdapter = SliderAdapter(::onMovieClick)
 
         setupHorizontalMoviesList(binding.rvPopularMovies, popularAdapter)
         setupHorizontalMoviesList(binding.rvTopRatedMovies, topRatedAdapter)
@@ -185,11 +178,13 @@ class HomeFragment : Fragment() {
         headerBinding.tvSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_moviesFragment)
         }
+
         adapter.submitList(section?.movies.orEmpty())
     }
 
-    private fun onMovieClick(): Unit {
-        findNavController().navigate(R.id.action_homeFragment_to_movieFragment)
+    private fun onMovieClick(movieId: Int) {
+        val bundle = bundleOf("movieId" to movieId)
+        findNavController().navigate(R.id.action_homeFragment_to_movieFragment, bundle)
     }
 
     override fun onDestroyView() {
