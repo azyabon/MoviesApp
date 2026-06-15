@@ -13,4 +13,5 @@
     <string name="overview_icon">overview icon</string>
     <string name="tv_budget">Budget: %1$s</string>
     <string name="tv_revenue">Revenue: %1$s</string>
+    <string name="no_favorites_yet">No favorites yet.</string>
 </resources>

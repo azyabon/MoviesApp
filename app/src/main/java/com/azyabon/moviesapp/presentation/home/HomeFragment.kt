@@ -20,6 +20,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.azyabon.moviesapp.R
 import com.azyabon.moviesapp.databinding.FragmentHomeBinding
 import com.azyabon.moviesapp.databinding.ViewSectionHeaderBinding
+import com.azyabon.moviesapp.presentation.common.MovieCardType
+import com.azyabon.moviesapp.presentation.common.adapter.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -72,9 +74,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        val popularAdapter = MoviesAdapter(::onMovieClick)
-        val topRatedAdapter = MoviesAdapter(::onMovieClick)
-        val upcomingAdapter = MoviesAdapter(::onMovieClick)
+        val popularAdapter = MoviesAdapter(MovieCardType.SECTION, ::onMovieClick)
+        val topRatedAdapter = MoviesAdapter(MovieCardType.SECTION, ::onMovieClick)
+        val upcomingAdapter = MoviesAdapter(MovieCardType.SECTION, ::onMovieClick)
         val sliderAdapter = SliderAdapter(::onMovieClick)
 
         setupHorizontalMoviesList(binding.rvPopularMovies, popularAdapter)
