@@ -1,5 +1,6 @@
 package com.azyabon.moviesapp.presentation.movie
 
+import android.widget.Toast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,20 +24,46 @@ class MovieViewModel @Inject constructor(
 
     init {
         loadMovieDetail()
+        observeFavoriteStatus()
+    }
+
+    private fun observeFavoriteStatus() {
+        viewModelScope.launch {
+            movieRepository.observeIsFavorite(movieId).collect { isFavorite ->
+                _uiState.value = _uiState.value.copy(isFavorite = isFavorite)
+            }
+        }
+    }
+
+    fun toggleFavorite() {
+        val movie = _uiState.value.movie ?: return
+
+        viewModelScope.launch {
+            if (_uiState.value.isFavorite) {
+                movieRepository.removeFromFavorites(movie.id)
+            } else {
+                movieRepository.addToFavorites(movie)
+            }
+        }
     }
 
     private fun loadMovieDetail() {
         viewModelScope.launch {
-            _uiState.value = MovieUi(isLoading = true)
+            _uiState.value = _uiState.value.copy(isLoading = true)
 
             try {
                 val movie = movieRepository.getMovieDetails(movieId)
 
-                _uiState.value = MovieUi(
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
                     movie = movie,
+                    errorMessage = null
                 )
             } catch (e: Exception) {
-                _uiState.value = MovieUi(errorMessage = e.message)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    errorMessage = e.message
+                )
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.azyabon.moviesapp.presentation.home
+package com.azyabon.moviesapp.presentation.common.model
 
 data class MovieUi(
     val id: Int,

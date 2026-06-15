@@ -13,6 +13,7 @@ import coil3.request.placeholder
 import com.azyabon.moviesapp.R
 import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL_780
 import com.azyabon.moviesapp.presentation.common.getRatingColor
+import com.azyabon.moviesapp.presentation.common.model.MovieUi
 
 class MoviesAdapter(
     private val onItemClick: (movieId: Int) -> Unit

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -25,7 +24,7 @@ import com.azyabon.moviesapp.presentation.common.TMDB_IMAGE_BASE_URL_780
 import com.azyabon.moviesapp.presentation.common.formatMoney
 import com.azyabon.moviesapp.presentation.common.formatReleaseYear
 import com.azyabon.moviesapp.presentation.common.formatRuntime
-import com.azyabon.moviesapp.presentation.common.getRatingColor
+import com.azyabon.moviesapp.presentation.common.getRatingBackgroundColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -65,11 +64,7 @@ class MovieFragment : Fragment() {
             }
 
             btnFavorite.setOnClickListener {
-                val text = "Has been added to favorites"
-                val duration = Toast.LENGTH_SHORT
-
-                val toast = Toast.makeText(activity, text, duration)
-                toast.show()
+                viewModel.toggleFavorite()
             }
 
             llOverview.setOnClickListener {
@@ -89,6 +84,10 @@ class MovieFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     val movie = uiState.movie
 
+                    binding.btnFavorite.setImageResource(
+                        if (uiState.isFavorite) R.drawable.ic_heart_fill else R.drawable.ic_heart
+                    )
+
                     movie?.let { m ->
                         with(binding) {
                             tvTitle.text = m.title
@@ -107,11 +106,11 @@ class MovieFragment : Fragment() {
 
                             val color = ContextCompat.getColor(
                                 tvVoteAverage.context,
-                                getRatingColor(movie.voteAverage)
+                                getRatingBackgroundColor(movie.voteAverage)
                             )
 
                             tvVoteAverage.text = "%.1f".format(movie.voteAverage).toString()
-                            tvVoteAverage.setTextColor(color)
+                            tvVoteAverage.backgroundTintList = ColorStateList.valueOf(color)
 
                             genreAdapter.submitList(m.genres)
                         }
@@ -139,7 +138,10 @@ class MovieFragment : Fragment() {
             }
 
             binding.btnBack.apply {
-                background = if (isCollapsed) null else ContextCompat.getDrawable(requireContext(), R.drawable.bg_opacity)
+                background = if (isCollapsed) null else ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.bg_opacity
+                )
                 imageTintList = ColorStateList.valueOf(iconColor)
 
                 layoutParams = layoutParams.apply {
@@ -147,7 +149,10 @@ class MovieFragment : Fragment() {
                 }
             }
             binding.btnFavorite.apply {
-                background = if (isCollapsed) null else ContextCompat.getDrawable(requireContext(), R.drawable.bg_opacity)
+                background = if (isCollapsed) null else ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.bg_opacity
+                )
                 imageTintList = ColorStateList.valueOf(iconColor)
 
                 layoutParams = layoutParams.apply {

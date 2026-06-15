@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azyabon.moviesapp.data.repository.MovieRepository
 import com.azyabon.moviesapp.domain.model.Movie
+import com.azyabon.moviesapp.presentation.common.model.MovieUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

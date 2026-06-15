@@ -126,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_button"
                     app:drawableStartCompat="@drawable/ic_favorites"
-                    android:paddingHorizontal="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp"
                     android:paddingVertical="6dp"
                     android:drawablePadding="4dp"
                     android:gravity="center"
@@ -186,6 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                tools:listitem="@layout/genre_item"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 tools:itemCount="1" />
